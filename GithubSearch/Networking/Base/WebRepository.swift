@@ -15,14 +15,6 @@ protocol WebRepository {
 
 extension WebRepository {
     
-    var session: URLSession {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 60
-        configuration.timeoutIntervalForResource = 60
-        configuration.waitsForConnectivity = true
-        return URLSession(configuration: configuration)
-    }
-    
     func call<Value>(endpoint: APICall, httpCodes: HTTPCodes = .success) -> AnyPublisher<Value, Error>
         where Value: Decodable {
         do {
