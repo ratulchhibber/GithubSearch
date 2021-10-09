@@ -6,7 +6,8 @@
 //
 
 struct GithubRepositoryResults: Codable {
-    let items: [GithubRepositoryResult]
+    var totalCount: Int
+    var items: [GithubRepositoryResult]
 }
 
 struct GithubRepositoryResult: Codable, Identifiable {
@@ -14,5 +15,5 @@ struct GithubRepositoryResult: Codable, Identifiable {
     let name: String
     let language: String?
     let description: String?
-    let stargazers_count: Int
+    let stargazersCount: Int
 }
