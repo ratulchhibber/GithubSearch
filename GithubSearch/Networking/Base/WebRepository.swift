@@ -41,8 +41,14 @@ private extension Publisher where Output == URLSession.DataTaskPublisher.Output 
                 }
                 return $0.data
             }
-            .decode(type: Value.self, decoder: JSONDecoder())
+            .decode(type: Value.self, decoder: decoder)
             .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
+    }
+    
+    private var decoder: JSONDecoder {
+        let decoder = JSONDecoder()
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
+        return decoder
     }
 }
