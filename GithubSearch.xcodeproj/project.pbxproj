@@ -25,6 +25,7 @@
 		C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */; };
 		C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */; };
 		C56FF5CA2712C0610027F682 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C92712C0610027F682 /* Date+Util.swift */; };
+		C56FF5CC2712E0E70027F682 /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CB2712E0E70027F682 /* RepositoryDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryConfiguration.swift; sourceTree = "<group>"; };
 		C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C56FF5C92712C0610027F682 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
+		C56FF5CB2712E0E70027F682 /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				C56FF5802711871B0027F682 /* RepositorySearchView.swift */,
+				C56FF5CB2712E0E70027F682 /* RepositoryDetailView.swift */,
 				C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */,
 			);
 			path = View;
@@ -347,6 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C56FF5B32711904D0027F682 /* GithubRepositoryResults.swift in Sources */,
+				C56FF5CC2712E0E70027F682 /* RepositoryDetailView.swift in Sources */,
 				C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */,
 				C56FF5AC27118D370027F682 /* WebRepository.swift in Sources */,
 				C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */,

@@ -66,7 +66,9 @@ extension RepositorySearchView {
                         }
                 }
             }.sheet(isPresented: $showModal) {
-                EmptyView()
+                if let selection = viewModel.selectedRepository {
+                    RepositoryDetailView(repository: selection)
+                }
             }
         }
     }
