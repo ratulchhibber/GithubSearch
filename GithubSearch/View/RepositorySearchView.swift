@@ -67,7 +67,8 @@ extension RepositorySearchView {
                 }
             }.sheet(isPresented: $showModal) {
                 if let selection = viewModel.selectedRepository {
-                    RepositoryDetailView(repository: selection)
+                    RepositoryDetailView(userChoice: $viewModel.userChoice,
+                                         repository: selection)
                 }
             }
         }
@@ -88,7 +89,10 @@ extension RepositorySearchView {
                     .font(.body)
             }
             Spacer()
-            Text("⭐️ \(item.stargazersCount)")
+            VStack(alignment: .leading, spacing: 10) {
+                Text("⭐️ \(item.stargazersCount)")
+                Text(viewModel.choiceDescription(for: item.id))
+            }
         }
         .contentShape(Rectangle())
     }
