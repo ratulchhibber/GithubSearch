@@ -14,6 +14,8 @@ class RepositorySearchVM: ObservableObject {
     @Published var searchResults: Loadable<GithubRepositoryResults>
     @Published var hasMoreResults = false
     
+    @Published var selectedRepository: GithubRepositoryResult?
+    
     private var subscriptions = Set<AnyCancellable>()
     
     init(searchResults: Loadable<GithubRepositoryResults> = .notRequested) {

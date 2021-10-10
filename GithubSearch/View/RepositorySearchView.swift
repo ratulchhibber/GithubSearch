@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct RepositorySearchView: View {
-    @StateObject private var viewModel = RepositorySearchVM()
     
+    @StateObject private var viewModel = RepositorySearchVM()
+    @State private var showModal = false
+
     var body: some View {
         NavigationView {
             contentView()
@@ -50,16 +52,11 @@ extension RepositorySearchView {
         } else {
             List {
                 ForEach(items) { item in
-                    HStack {
-                        VStack(alignment: .leading, spacing: 10) {
-                            Text(item.name)
-                                .font(.title2)
-                            Text(item.language ?? "")
-                                .font(.body)
+                    repositoryRow(for: item)
+                        .onTapGesture {
+                            viewModel.selectedRepository = item
+                            showModal.toggle()
                         }
-                        Spacer()
-                        Text("⭐️ \(item.stargazersCount)")
-                    }
                 }
                 
                 if viewModel.hasMoreResults {
@@ -68,6 +65,8 @@ extension RepositorySearchView {
                             viewModel.loadMore()
                         }
                 }
+            }.sheet(isPresented: $showModal) {
+                EmptyView()
             }
         }
     }
@@ -75,6 +74,21 @@ extension RepositorySearchView {
     @ViewBuilder
     private func errorView() -> some View {
         Text("Oops, Something went wrong!")
+    }
+    
+    @ViewBuilder
+    private func repositoryRow(for item: GithubRepositoryResult) -> some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 10) {
+                Text(item.name)
+                    .font(.title2)
+                Text(item.language ?? "")
+                    .font(.body)
+            }
+            Spacer()
+            Text("⭐️ \(item.stargazersCount)")
+        }
+        .contentShape(Rectangle())
     }
 }
 
