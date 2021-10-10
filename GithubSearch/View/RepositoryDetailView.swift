@@ -13,7 +13,24 @@ struct RepositoryDetailView: View {
     let repository: GithubRepositoryResult
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        NavigationView {
+            contentView()
+                .toolbar {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Button("Cancel") {
+                            dismiss()
+                        }
+                    }
+                }
+        }
+    }
+    
+    @ViewBuilder
+    private func contentView() -> some View {
+        VStack(alignment: .leading, spacing: 20) {
+            if let url = repository.owner?.avatarUrl {
+                avatarView(for: url)
+            }
             infoRow(title: "Owner's login:",
                     detail: repository.owner?.login ?? "")
             infoRow(title: "Creation date:",
