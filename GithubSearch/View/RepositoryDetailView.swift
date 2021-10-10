@@ -81,6 +81,35 @@ struct RepositoryDetailView: View {
         .padding()
     }
     
+    @ViewBuilder
+    private func avatarView(for url: String) -> some View {
+        HStack {
+            Spacer()
+            AsyncImage(url: URL(string: url), transaction: Transaction(animation: .spring())) { phase in
+                switch phase {
+                case .empty:
+                   ActivityIndicatorView(style: .large)
+             
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+             
+                case .failure(_):
+                    Image(systemName: "exclamationmark.icloud")
+                        .resizable()
+                        .scaledToFit()
+             
+                @unknown default:
+                    Image(systemName: "exclamationmark.icloud")
+                }
+            }
+            .frame(width: 200, height: 200)
+            .cornerRadius(20)
+            Spacer()
+        }
+    }
+    
     private func dismiss() {
         presentationMode.wrappedValue.dismiss()
     }
