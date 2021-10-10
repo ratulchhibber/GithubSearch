@@ -23,6 +23,7 @@
 		C56FF5BE2711A0190027F682 /* CancelBag+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BD2711A0190027F682 /* CancelBag+Util.swift */; };
 		C56FF5C02711A1590027F682 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BF2711A1590027F682 /* RepositoryFactory.swift */; };
 		C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */; };
+		C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +63,7 @@
 		C56FF5BD2711A0190027F682 /* CancelBag+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CancelBag+Util.swift"; sourceTree = "<group>"; };
 		C56FF5BF2711A1590027F682 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
 		C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryConfiguration.swift; sourceTree = "<group>"; };
+		C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				C56FF5802711871B0027F682 /* RepositorySearchView.swift */,
+				C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -343,6 +346,7 @@
 				C56FF5B32711904D0027F682 /* GithubRepositoryResults.swift in Sources */,
 				C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */,
 				C56FF5AC27118D370027F682 /* WebRepository.swift in Sources */,
+				C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */,
 				C56FF5B027118E3C0027F682 /* APICall.swift in Sources */,
 				C56FF5BE2711A0190027F682 /* CancelBag+Util.swift in Sources */,
 				C56FF5812711871B0027F682 /* RepositorySearchView.swift in Sources */,

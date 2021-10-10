@@ -13,10 +13,10 @@ struct RepositorySearchView: View {
     var body: some View {
         NavigationView {
             contentView()
-                .searchable(text: $viewModel.searchText)
-                .disableAutocorrection(true)
                 .navigationTitle("Github Search")
         }
+        .searchable(text: $viewModel.searchText)
+        .disableAutocorrection(true)
     }
 }
 
@@ -26,7 +26,7 @@ extension RepositorySearchView {
     private func contentView() -> some View {
         switch viewModel.searchResults {
             case .notRequested: notRequestedView()
-            case .isLoading: loadingView()
+            case .isLoading: loadingView(for: .large)
             case .loaded(let results): loadedView(for: results.items)
             case .failed: errorView()
         }
@@ -38,8 +38,9 @@ extension RepositorySearchView {
     }
     
     @ViewBuilder
-    private func loadingView() -> some View {
-        Text("Loading...")
+    private func loadingView(for style: UIActivityIndicatorView.Style) -> some View {
+        ActivityIndicatorView(style: style)
+            .padding()
     }
     
     @ViewBuilder
@@ -47,16 +48,25 @@ extension RepositorySearchView {
         if items.isEmpty {
             Text("No results found")
         } else {
-            List(items) { item in
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
-                        Text(item.name)
-                            .font(.title2)
-                        Text(item.language ?? "")
-                            .font(.body)
+            List {
+                ForEach(items) { item in
+                    HStack {
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text(item.name)
+                                .font(.title2)
+                            Text(item.language ?? "")
+                                .font(.body)
+                        }
+                        Spacer()
+                        Text("⭐️ \(item.stargazersCount)")
                     }
-                    Spacer()
-                    Text("⭐️ \(item.stargazers_count)")
+                }
+                
+                if viewModel.hasMoreResults {
+                    loadingView(for: .medium)
+                        .onAppear {
+                            viewModel.loadMore()
+                        }
                 }
             }
         }
