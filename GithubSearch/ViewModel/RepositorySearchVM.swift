@@ -15,7 +15,8 @@ final class RepositorySearchVM: ObservableObject {
     @Published var hasMoreResults = false
     
     @Published var selectedRepository: GithubRepositoryResult?
-    
+    @Published var userChoice = [Int: Choice]()/*RepositoryId: Choice*/
+
     private var subscriptions = Set<AnyCancellable>()
     
     init(searchResults: Loadable<GithubRepositoryResults> = .notRequested) {
@@ -75,6 +76,7 @@ extension RepositorySearchVM {
     }
 }
 
+// MARK: - Pagination
 extension RepositorySearchVM {
     
     func loadMore() {
@@ -108,5 +110,28 @@ extension RepositorySearchVM {
         pagination.currentPage += 1
         pagination.results = results
         hasMoreResults = results.totalCount > (pagination.results?.items.count ?? 0)
+    }
+}
+
+// MARK: - User choice
+enum Choice: CustomStringConvertible {
+    case like, dislike, none
+    
+    var description: String {
+        switch self {
+            case .like: return "👍"
+            case .dislike: return "👎"
+            case .none: return ""
+        }
+    }
+}
+
+extension RepositorySearchVM {
+    
+    func choiceDescription(for id: Int) -> String {
+        if let choice = userChoice[id] {
+            return choice.description
+        }
+        return Choice.none.description
     }
 }
