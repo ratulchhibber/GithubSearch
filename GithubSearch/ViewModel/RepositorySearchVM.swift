@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class RepositorySearchVM: ObservableObject {
+final class RepositorySearchVM: ObservableObject {
     
     @Published var searchText = ""
     @Published var searchResults: Loadable<GithubRepositoryResults>

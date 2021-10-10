@@ -7,7 +7,7 @@
 
 import Foundation
 
-class GithubRepositoryConfiguration: WebRepository {
+final class GithubRepositoryConfiguration: WebRepository {
     
     var session: URLSession {
         let configuration = URLSessionConfiguration.default
