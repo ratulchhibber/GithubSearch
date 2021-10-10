@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RepositoryDetailView: View {
-    @Environment(\.dismiss) var dismiss
+    @Environment(\.presentationMode) var presentationMode
+    @Binding var userChoice: [Int: Choice]
     let repository: GithubRepositoryResult
 
     var body: some View {
@@ -23,6 +24,13 @@ struct RepositoryDetailView: View {
                     detail: repository.language ?? "")
             infoRow(title: "⭐️",
                     detail: "\(repository.stargazersCount)")
+            
+            if previousChoice != .none {
+                infoRow(title: "Previous choice:",
+                        detail: "\(previousChoice)")
+            }
+            
+            selectUserChoiceRow()
         }
         .padding(.horizontal, 20)
     }
@@ -36,6 +44,34 @@ struct RepositoryDetailView: View {
             Text(detail)
         }
     }
+    
+    @ViewBuilder
+    private func selectUserChoiceRow() -> some View {
+        HStack(spacing: 20) {
+            Spacer()
+            Button(Choice.like.description) {
+                userChoice[repository.id] = .like
+                dismiss()
+            }.font(.largeTitle)
+            Spacer()
+            Button(Choice.dislike.description) {
+                userChoice[repository.id] = .dislike
+                dismiss()
+            }.font(.largeTitle)
+            Spacer()
+        }
+        .padding(.top)
+        .padding()
+    }
+    
+    private func dismiss() {
+        presentationMode.wrappedValue.dismiss()
+    }
+}
+
+extension RepositoryDetailView {
+    
+    private var previousChoice: Choice { userChoice[repository.id] ?? .none }
     
     private var creationDate: String {
         if let date = repository.createdAt {
