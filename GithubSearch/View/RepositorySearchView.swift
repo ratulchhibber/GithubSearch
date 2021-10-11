@@ -9,7 +9,7 @@ import SwiftUI
 
 struct RepositorySearchView: View {
     
-    @StateObject private var viewModel = RepositorySearchVM()
+    @ObservedObject private(set) var viewModel: RepositorySearchVM
     @State private var showModal = false
 
     var body: some View {
@@ -23,7 +23,7 @@ struct RepositorySearchView: View {
 }
 
 extension RepositorySearchView {
-    
+        
     @ViewBuilder
     private func contentView() -> some View {
         switch viewModel.searchResults {
@@ -95,11 +95,5 @@ extension RepositorySearchView {
             }
         }
         .contentShape(Rectangle())
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        RepositorySearchView()
     }
 }

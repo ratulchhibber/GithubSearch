@@ -7,7 +7,12 @@
 
 import Foundation
 
-final class GithubRepositoryConfiguration: WebRepository {
+protocol WebRepositoryConfigurable {
+    var session: URLSession { get }
+    var baseURL: String { get }
+}
+
+final class GithubRepositoryConfiguration: WebRepositoryConfigurable {
     
     var session: URLSession {
         let configuration = URLSessionConfiguration.default

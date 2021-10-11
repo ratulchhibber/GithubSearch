@@ -19,8 +19,13 @@ final class RepositorySearchVM: ObservableObject {
 
     private var subscriptions = Set<AnyCancellable>()
     
-    init(searchResults: Loadable<GithubRepositoryResults> = .notRequested) {
+    let container: DIContainer
+    
+    init(container: DIContainer,
+         searchResults: Loadable<GithubRepositoryResults> = .notRequested) {
+        
         _searchResults = .init(initialValue: searchResults)
+        self.container = container
         setupContinousSearchBinding()
         setupClearSearchBinding()
     }
@@ -38,9 +43,9 @@ extension RepositorySearchVM {
             .debounce(for: 0.5, scheduler: DispatchQueue.main)
             .removeDuplicates()
             .filter { !$0.isEmpty }
-            .compactMap { query in
-                RepositoryFactory
-                    .githubSearchRepository(for: GithubRepositoryConfiguration())
+            .compactMap { [weak self] query in
+                self?.container.interactors
+                    .githubRepositoryInteractor
                     .searchRepository(for: SearchQuery(query: query, pageNumber: 1))
 
                     .handleEvents(receiveRequest: { [weak self] _ in
@@ -80,8 +85,8 @@ extension RepositorySearchVM {
 extension RepositorySearchVM {
     
     func loadMore() {
-        RepositoryFactory
-            .githubSearchRepository(for: GithubRepositoryConfiguration())
+        container.interactors
+            .githubRepositoryInteractor
             .searchRepository(for: SearchQuery(query: searchText,
                                                pageNumber: pagination.currentPage + 1))
             .sink { [weak self] result in
