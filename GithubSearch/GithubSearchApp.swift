@@ -11,7 +11,10 @@ import SwiftUI
 struct GithubSearchApp: App {
     var body: some Scene {
         WindowGroup {
-            RepositorySearchView()
+            let environment = AppEnvironment.bootstrap()
+            RepositorySearchView(viewModel:
+                                    RepositorySearchVM(container: environment.container))
+
         }
     }
 }
