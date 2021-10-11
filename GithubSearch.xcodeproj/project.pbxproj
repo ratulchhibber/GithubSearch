@@ -21,11 +21,14 @@
 		C56FF5B7271190A20027F682 /* GithubSearchWebRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5B6271190A20027F682 /* GithubSearchWebRepository.swift */; };
 		C56FF5BC27119DC60027F682 /* Loadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BB27119DC60027F682 /* Loadable.swift */; };
 		C56FF5BE2711A0190027F682 /* CancelBag+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BD2711A0190027F682 /* CancelBag+Util.swift */; };
-		C56FF5C02711A1590027F682 /* RepositoryFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BF2711A1590027F682 /* RepositoryFactory.swift */; };
+		C56FF5C02711A1590027F682 /* GithubRepositoryInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5BF2711A1590027F682 /* GithubRepositoryInteractor.swift */; };
 		C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */; };
 		C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */; };
 		C56FF5CA2712C0610027F682 /* Date+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5C92712C0610027F682 /* Date+Util.swift */; };
 		C56FF5CC2712E0E70027F682 /* RepositoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CB2712E0E70027F682 /* RepositoryDetailView.swift */; };
+		C56FF5D027142D6C0027F682 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CE27142D6C0027F682 /* DependencyInjector.swift */; };
+		C56FF5D127142D6C0027F682 /* InteractorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CF27142D6C0027F682 /* InteractorsContainer.swift */; };
+		C56FF5D3271430E20027F682 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5D2271430E20027F682 /* AppEnvironment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,11 +66,14 @@
 		C56FF5B6271190A20027F682 /* GithubSearchWebRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchWebRepository.swift; sourceTree = "<group>"; };
 		C56FF5BB27119DC60027F682 /* Loadable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loadable.swift; sourceTree = "<group>"; };
 		C56FF5BD2711A0190027F682 /* CancelBag+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CancelBag+Util.swift"; sourceTree = "<group>"; };
-		C56FF5BF2711A1590027F682 /* RepositoryFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryFactory.swift; sourceTree = "<group>"; };
+		C56FF5BF2711A1590027F682 /* GithubRepositoryInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryInteractor.swift; sourceTree = "<group>"; };
 		C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubRepositoryConfiguration.swift; sourceTree = "<group>"; };
 		C56FF5C72712108F0027F682 /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		C56FF5C92712C0610027F682 /* Date+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Util.swift"; sourceTree = "<group>"; };
 		C56FF5CB2712E0E70027F682 /* RepositoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryDetailView.swift; sourceTree = "<group>"; };
+		C56FF5CE27142D6C0027F682 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
+		C56FF5CF27142D6C0027F682 /* InteractorsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorsContainer.swift; sourceTree = "<group>"; };
+		C56FF5D2271430E20027F682 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +124,7 @@
 		C56FF57D2711871B0027F682 /* GithubSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C56FF5CD27142D580027F682 /* DependencyInjection */,
 				C56FF5BA27119D880027F682 /* Utilities */,
 				C56FF5B127118F610027F682 /* Model */,
 				C56FF5AA27118D2A0027F682 /* Networking */,
@@ -160,7 +167,6 @@
 			children = (
 				C56FF5B42711907E0027F682 /* Base */,
 				C56FF5B52711908D0027F682 /* GithubSearch */,
-				C56FF5BF2711A1590027F682 /* RepositoryFactory.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -187,6 +193,7 @@
 			children = (
 				C56FF5C32711B41D0027F682 /* GithubRepositoryConfiguration.swift */,
 				C56FF5B6271190A20027F682 /* GithubSearchWebRepository.swift */,
+				C56FF5BF2711A1590027F682 /* GithubRepositoryInteractor.swift */,
 			);
 			path = GithubSearch;
 			sourceTree = "<group>";
@@ -217,6 +224,16 @@
 				C56FF5C92712C0610027F682 /* Date+Util.swift */,
 			);
 			path = Utilities;
+			sourceTree = "<group>";
+		};
+		C56FF5CD27142D580027F682 /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				C56FF5CE27142D6C0027F682 /* DependencyInjector.swift */,
+				C56FF5CF27142D6C0027F682 /* InteractorsContainer.swift */,
+				C56FF5D2271430E20027F682 /* AppEnvironment.swift */,
+			);
+			path = DependencyInjection;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -350,19 +367,22 @@
 			buildActionMask = 2147483647;
 			files = (
 				C56FF5B32711904D0027F682 /* GithubRepositoryResults.swift in Sources */,
+				C56FF5D027142D6C0027F682 /* DependencyInjector.swift in Sources */,
 				C56FF5CC2712E0E70027F682 /* RepositoryDetailView.swift in Sources */,
 				C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */,
 				C56FF5AC27118D370027F682 /* WebRepository.swift in Sources */,
 				C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */,
+				C56FF5D127142D6C0027F682 /* InteractorsContainer.swift in Sources */,
 				C56FF5B027118E3C0027F682 /* APICall.swift in Sources */,
 				C56FF5BE2711A0190027F682 /* CancelBag+Util.swift in Sources */,
 				C56FF5812711871B0027F682 /* RepositorySearchView.swift in Sources */,
 				C56FF57F2711871B0027F682 /* GithubSearchApp.swift in Sources */,
-				C56FF5C02711A1590027F682 /* RepositoryFactory.swift in Sources */,
+				C56FF5C02711A1590027F682 /* GithubRepositoryInteractor.swift in Sources */,
 				C56FF5CA2712C0610027F682 /* Date+Util.swift in Sources */,
 				C56FF5BC27119DC60027F682 /* Loadable.swift in Sources */,
 				C56FF5A927118BC30027F682 /* RepositorySearchVM.swift in Sources */,
 				C56FF5B7271190A20027F682 /* GithubSearchWebRepository.swift in Sources */,
+				C56FF5D3271430E20027F682 /* AppEnvironment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
