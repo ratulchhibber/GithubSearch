@@ -6,29 +6,120 @@
 //
 
 import XCTest
+import Combine
 @testable import GithubSearch
 
-//TODO:
 class GithubSearchTests: XCTestCase {
+    
+    var subscriptions = Set<AnyCancellable>()
+    var viewModel: RepositorySearchVM!
 
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        try super.setUpWithError()
+        let diContainer = DIContainer(interactors: DIContainer.Interactors.stub)
+        viewModel = RepositorySearchVM(container: diContainer)
     }
-
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    
+    func testSearchResultsModel() {
+        var testResultCount = 0
+        let promise = expectation(description: "searchResultsLoaded with 14 results")
+        viewModel.container
+            .interactors
+            .githubRepositoryInteractor
+            .searchRepository(for: SearchQuery(query: "testQuery",
+                                               pageNumber: 1,
+                                               perPageResults: 14))
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        break
+                    case .failure(_):
+                        XCTFail()
+                }
+            } receiveValue: { result in
+                testResultCount = result.totalCount
+                promise.fulfill()
+            }
+            .store(in: &subscriptions)
+        
+        wait(for: [promise], timeout: 1)
+        
+        XCTAssertEqual(testResultCount, 14)
     }
+    
+    func testHasLoadMoreResults() {
+        
+        var hasLoadMore = false
+        let searchQuery = SearchQuery(query: "testQuery",
+                                      pageNumber: 1,
+                                      perPageResults: 12)
+        
+        let promise = expectation(description: "searchResultsLoaded with 12 results")
+        viewModel.container
+            .interactors
+            .githubRepositoryInteractor
+            .searchRepository(for: searchQuery)
+            .sink { completion in
+                switch completion {
+                    case .finished:
+                        break
+                    case .failure(_):
+                        XCTFail()
+                }
+            } receiveValue: { result in
+                hasLoadMore = result.totalCount > searchQuery.perPageResults
+                promise.fulfill()
+            }
+            .store(in: &subscriptions)
+        
+        wait(for: [promise], timeout: 1)
+        
+        XCTAssertTrue(hasLoadMore)
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
+    func testLikeChoice() {
+        viewModel.userChoice[1234] = .like
+        
+        let exp = expectValue(of: viewModel.$userChoice,
+                              equals: [{ $0[1234] == .like }])
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+        wait(for: [exp.expectation], timeout: 1)
     }
+    
+    func testDislikedChoice() {
+        viewModel.userChoice[1234] = .dislike
+        
+        let exp = expectValue(of: viewModel.$userChoice,
+                              equals: [{ $0[1234] == .dislike }])
 
+        wait(for: [exp.expectation], timeout: 1)
+    }
+    
+    func testNoChoice() {
+        let exp = expectValue(of: viewModel.$userChoice,
+                              equals: [{ $0[0] == nil }])
+
+        wait(for: [exp.expectation], timeout: 1)
+    }
+    
+    func testLikedChoiceDescription() {
+        viewModel.userChoice[1234] = .like
+        XCTAssertEqual(viewModel.choiceDescription(for: 1234), Choice.like.description)
+    }
+    
+    func testDislikedChoiceDescription() {
+        viewModel.userChoice[1234] = .dislike
+        XCTAssertEqual(viewModel.choiceDescription(for: 1234), Choice.dislike.description)
+    }
+    
+    func testNoneChoiceDescription() {
+        XCTAssertEqual(viewModel.choiceDescription(for: 1234), Choice.none.description)
+    }
+}
+
+private struct SearchQuery: GithubSearchQueryCustomizable {
+    var query: String
+    var pageNumber: Int
+    var perPageResults: Int
 }
