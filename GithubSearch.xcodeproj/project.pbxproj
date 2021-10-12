@@ -29,6 +29,9 @@
 		C56FF5D027142D6C0027F682 /* DependencyInjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CE27142D6C0027F682 /* DependencyInjector.swift */; };
 		C56FF5D127142D6C0027F682 /* InteractorsContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5CF27142D6C0027F682 /* InteractorsContainer.swift */; };
 		C56FF5D3271430E20027F682 /* AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5D2271430E20027F682 /* AppEnvironment.swift */; };
+		C56FF5D52714B2310027F682 /* Bundle+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5D42714B2310027F682 /* Bundle+Util.swift */; };
+		C56FF5D92714B45D0027F682 /* searchResults.json in Resources */ = {isa = PBXBuildFile; fileRef = C56FF5D72714B2BD0027F682 /* searchResults.json */; };
+		C56FF5DB2714C2D50027F682 /* XCTestCase+Util.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5DA2714C2D50027F682 /* XCTestCase+Util.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +77,9 @@
 		C56FF5CE27142D6C0027F682 /* DependencyInjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DependencyInjector.swift; sourceTree = "<group>"; };
 		C56FF5CF27142D6C0027F682 /* InteractorsContainer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InteractorsContainer.swift; sourceTree = "<group>"; };
 		C56FF5D2271430E20027F682 /* AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEnvironment.swift; sourceTree = "<group>"; };
+		C56FF5D42714B2310027F682 /* Bundle+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle+Util.swift"; sourceTree = "<group>"; };
+		C56FF5D72714B2BD0027F682 /* searchResults.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = searchResults.json; sourceTree = "<group>"; };
+		C56FF5DA2714C2D50027F682 /* XCTestCase+Util.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Util.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +155,8 @@
 			isa = PBXGroup;
 			children = (
 				C56FF58F2711871D0027F682 /* GithubSearchTests.swift */,
+				C56FF5DA2714C2D50027F682 /* XCTestCase+Util.swift */,
+				C56FF5D62714B29A0027F682 /* Mock */,
 			);
 			path = GithubSearchTests;
 			sourceTree = "<group>";
@@ -222,6 +230,7 @@
 				C56FF5BB27119DC60027F682 /* Loadable.swift */,
 				C56FF5BD2711A0190027F682 /* CancelBag+Util.swift */,
 				C56FF5C92712C0610027F682 /* Date+Util.swift */,
+				C56FF5D42714B2310027F682 /* Bundle+Util.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -234,6 +243,14 @@
 				C56FF5D2271430E20027F682 /* AppEnvironment.swift */,
 			);
 			path = DependencyInjection;
+			sourceTree = "<group>";
+		};
+		C56FF5D62714B29A0027F682 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				C56FF5D72714B2BD0027F682 /* searchResults.json */,
+			);
+			path = Mock;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -341,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C56FF5862711871D0027F682 /* Preview Assets.xcassets in Resources */,
+				C56FF5D92714B45D0027F682 /* searchResults.json in Resources */,
 				C56FF5832711871D0027F682 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,6 +387,7 @@
 				C56FF5B32711904D0027F682 /* GithubRepositoryResults.swift in Sources */,
 				C56FF5D027142D6C0027F682 /* DependencyInjector.swift in Sources */,
 				C56FF5CC2712E0E70027F682 /* RepositoryDetailView.swift in Sources */,
+				C56FF5D52714B2310027F682 /* Bundle+Util.swift in Sources */,
 				C56FF5C42711B41D0027F682 /* GithubRepositoryConfiguration.swift in Sources */,
 				C56FF5AC27118D370027F682 /* WebRepository.swift in Sources */,
 				C56FF5C82712108F0027F682 /* ActivityIndicatorView.swift in Sources */,
@@ -390,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C56FF5DB2714C2D50027F682 /* XCTestCase+Util.swift in Sources */,
 				C56FF5902711871D0027F682 /* GithubSearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
