@@ -26,7 +26,11 @@ final class GithubRepositoryInteractor: GithubRepositoryInteractorCustomizable {
 
 struct StubGithubRepositoryInteractor: GithubRepositoryInteractorCustomizable {
     func searchRepository(for query: GithubSearchQueryCustomizable) -> AnyPublisher<GithubRepositoryResults, Error> {
-        //TODO: return mock response
-        return Empty().eraseToAnyPublisher()
+        return Just(Bundle.main
+                        .decode(GithubRepositoryResults.self,
+                                from: "searchResults.json",
+                                keyDecodingStrategy: .convertFromSnakeCase)
+                    ).mapError({ _ in  APIError.unexpectedResponse })
+                     .eraseToAnyPublisher()
     }
 }
