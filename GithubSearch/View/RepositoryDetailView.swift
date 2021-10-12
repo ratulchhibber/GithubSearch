@@ -67,12 +67,12 @@ struct RepositoryDetailView: View {
         HStack(spacing: 20) {
             Spacer()
             Button(Choice.like.description) {
-                userChoice[repository.id] = .like
+                userChoice[repository.githubId] = .like
                 dismiss()
             }.font(.largeTitle)
             Spacer()
             Button(Choice.dislike.description) {
-                userChoice[repository.id] = .dislike
+                userChoice[repository.githubId] = .dislike
                 dismiss()
             }.font(.largeTitle)
             Spacer()
@@ -117,7 +117,7 @@ struct RepositoryDetailView: View {
 
 extension RepositoryDetailView {
     
-    private var previousChoice: Choice { userChoice[repository.id] ?? .none }
+    private var previousChoice: Choice { userChoice[repository.githubId] ?? .none }
     
     private var creationDate: String {
         if let date = repository.createdAt {

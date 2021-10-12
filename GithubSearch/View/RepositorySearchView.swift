@@ -51,7 +51,7 @@ extension RepositorySearchView {
             Text("No results found")
         } else {
             List {
-                ForEach(items) { item in
+                ForEach(items, id: \.id) { item in
                     repositoryRow(for: item)
                         .onTapGesture {
                             viewModel.selectedRepository = item
@@ -91,7 +91,7 @@ extension RepositorySearchView {
             Spacer()
             VStack(alignment: .leading, spacing: 10) {
                 Text("⭐️ \(item.stargazersCount)")
-                Text(viewModel.choiceDescription(for: item.id))
+                Text(viewModel.choiceDescription(for: item.githubId))
             }
         }
         .contentShape(Rectangle())

@@ -13,7 +13,8 @@ struct GithubRepositoryResults: Codable {
 }
 
 struct GithubRepositoryResult: Codable, Identifiable {
-    let id: Int
+    let id: UUID
+    let githubId: Int
     let name: String
     let language: String?
     let description: String?
@@ -22,12 +23,13 @@ struct GithubRepositoryResult: Codable, Identifiable {
     let createdAt: Date?
     
     enum CodingKeys: String, CodingKey {
-        case id, name, language, description, stargazersCount, owner, createdAt
+        case githubId = "id", name, language, description, stargazersCount, owner, createdAt
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        id = try container.decode(Int.self, forKey: .id)
+        id = UUID()
+        githubId = try container.decode(Int.self, forKey: .githubId)
         name = try container.decode(String.self, forKey: .name)
         language = try container.decodeIfPresent(String.self, forKey: .language)
         description = try container.decodeIfPresent(String.self, forKey: .description)

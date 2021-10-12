@@ -130,11 +130,11 @@
 		C56FF57D2711871B0027F682 /* GithubSearch */ = {
 			isa = PBXGroup;
 			children = (
+				C56FF57E2711871B0027F682 /* GithubSearchApp.swift */,
 				C56FF5CD27142D580027F682 /* DependencyInjection */,
 				C56FF5BA27119D880027F682 /* Utilities */,
 				C56FF5B127118F610027F682 /* Model */,
 				C56FF5AA27118D2A0027F682 /* Networking */,
-				C56FF57E2711871B0027F682 /* GithubSearchApp.swift */,
 				C56FF5B827119C410027F682 /* View */,
 				C56FF5B927119C480027F682 /* ViewModel */,
 				C56FF5822711871D0027F682 /* Assets.xcassets */,
