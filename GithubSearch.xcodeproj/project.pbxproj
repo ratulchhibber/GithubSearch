@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C56685D82719818500813580 /* searchErrorPlaceholder.json in Resources */ = {isa = PBXBuildFile; fileRef = C56685D72719818500813580 /* searchErrorPlaceholder.json */; };
 		C56FF57F2711871B0027F682 /* GithubSearchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF57E2711871B0027F682 /* GithubSearchApp.swift */; };
 		C56FF5812711871B0027F682 /* RepositorySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C56FF5802711871B0027F682 /* RepositorySearchView.swift */; };
 		C56FF5832711871D0027F682 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C56FF5822711871D0027F682 /* Assets.xcassets */; };
@@ -52,6 +53,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		C56685D72719818500813580 /* searchErrorPlaceholder.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = searchErrorPlaceholder.json; sourceTree = "<group>"; };
 		C56FF57B2711871B0027F682 /* GithubSearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GithubSearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C56FF57E2711871B0027F682 /* GithubSearchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GithubSearchApp.swift; sourceTree = "<group>"; };
 		C56FF5802711871B0027F682 /* RepositorySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositorySearchView.swift; sourceTree = "<group>"; };
@@ -107,6 +109,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C56685D62719815F00813580 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C56FF5822711871D0027F682 /* Assets.xcassets */,
+				C56685D72719818500813580 /* searchErrorPlaceholder.json */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		C56FF5722711871B0027F682 = {
 			isa = PBXGroup;
 			children = (
@@ -137,7 +148,7 @@
 				C56FF5AA27118D2A0027F682 /* Networking */,
 				C56FF5B827119C410027F682 /* View */,
 				C56FF5B927119C480027F682 /* ViewModel */,
-				C56FF5822711871D0027F682 /* Assets.xcassets */,
+				C56685D62719815F00813580 /* Resources */,
 				C56FF5842711871D0027F682 /* Preview Content */,
 			);
 			path = GithubSearch;
@@ -358,6 +369,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C56FF5862711871D0027F682 /* Preview Assets.xcassets in Resources */,
+				C56685D82719818500813580 /* searchErrorPlaceholder.json in Resources */,
 				C56FF5D92714B45D0027F682 /* searchResults.json in Resources */,
 				C56FF5832711871D0027F682 /* Assets.xcassets in Resources */,
 			);
