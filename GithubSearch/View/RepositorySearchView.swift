@@ -29,7 +29,7 @@ extension RepositorySearchView {
         switch viewModel.searchResults {
             case .notRequested: notRequestedView()
             case .isLoading: loadingView(for: .large)
-            case .loaded(let results): loadedView(for: results.items)
+            case .loaded(let results): loadedView(for: results)
             case .failed: errorView()
         }
     }
@@ -46,37 +46,50 @@ extension RepositorySearchView {
     }
     
     @ViewBuilder
-    private func loadedView(for items: [GithubRepositoryResult]) -> some View {
-        if items.isEmpty {
-            Text("No results found")
+    private func loadedView(for results: GithubRepositoryResults) -> some View {
+        if viewModel.hasErroneousResults(for: results) {
+            errorView()
+        } else if viewModel.hasNoResults(for: results) {
+            noResultsView()
         } else {
-            List {
-                ForEach(items, id: \.id) { item in
-                    repositoryRow(for: item)
-                        .onTapGesture {
-                            viewModel.selectedRepository = item
-                            showModal.toggle()
-                        }
-                }
-                
-                if viewModel.hasMoreResults {
-                    loadingView(for: .medium)
-                        .onAppear {
-                            viewModel.loadMore()
-                        }
-                }
-            }.sheet(isPresented: $showModal) {
-                if let selection = viewModel.selectedRepository {
-                    RepositoryDetailView(userChoice: $viewModel.userChoice,
-                                         repository: selection)
-                }
-            }
+            resultsView(for: results)
         }
+    }
+    
+    @ViewBuilder
+    private func noResultsView() -> some View {
+        Text("No results found")
     }
     
     @ViewBuilder
     private func errorView() -> some View {
         Text("Oops, Something went wrong!")
+    }
+    
+    @ViewBuilder
+    private func resultsView(for results: GithubRepositoryResults) -> some View {
+        List {
+            ForEach(results.items, id: \.id) { item in
+                repositoryRow(for: item)
+                    .onTapGesture {
+                        viewModel.selectedRepository = item
+                        showModal.toggle()
+                    }
+            }
+            
+            if viewModel.hasMoreResults {
+                loadingView(for: .medium)
+                    .onAppear {
+                        viewModel.loadMore()
+                    }
+            }
+        }.sheet(isPresented: $showModal) {
+            if let selection = viewModel.selectedRepository {
+                RepositoryDetailView(userChoice: $viewModel.userChoice,
+                                     repository: selection)
+            }
+        }
+
     }
     
     @ViewBuilder

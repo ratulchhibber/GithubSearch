@@ -9,10 +9,10 @@ import XCTest
 import Combine
 @testable import GithubSearch
 
-class GithubSearchTests: XCTestCase {
+final class GithubSearchTests: XCTestCase {
     
-    var subscriptions = Set<AnyCancellable>()
-    var viewModel: RepositorySearchVM!
+    private var subscriptions = Set<AnyCancellable>()
+    private var viewModel: RepositorySearchVM!
 
     override func setUpWithError() throws {
         try super.setUpWithError()
