@@ -53,6 +53,9 @@ extension RepositorySearchVM {
                              .setIsLoading(cancelBag: CancelBag())
                     })
                     .catch { error -> AnyPublisher<GithubRepositoryResults, Never> in
+                        if let placeholder = self?.searchErrorPlaceHolder {
+                            return Just(placeholder).eraseToAnyPublisher()
+                        }
                         return Empty().eraseToAnyPublisher()
                     }
             }
@@ -78,6 +81,22 @@ extension RepositorySearchVM {
         var query: String
         var pageNumber: Int
         var perPageResults = 12
+    }
+}
+
+extension RepositorySearchVM {
+    
+    private var searchErrorPlaceHolder: GithubRepositoryResults? {
+        return Bundle.main.decode(GithubRepositoryResults.self,
+                                  from: "searchErrorPlaceholder.json")
+    }
+    
+    func hasErroneousResults(for result: GithubRepositoryResults) -> Bool {
+        return result.totalCount == -1
+    }
+    
+    func hasNoResults(for result: GithubRepositoryResults) -> Bool {
+        return result.items.isEmpty
     }
 }
 
