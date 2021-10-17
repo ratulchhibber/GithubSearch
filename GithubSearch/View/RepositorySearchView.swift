@@ -22,6 +22,7 @@ struct RepositorySearchView: View {
     }
 }
 
+// MARK: - Results
 extension RepositorySearchView {
         
     @ViewBuilder
@@ -64,6 +65,7 @@ extension RepositorySearchView {
     @ViewBuilder
     private func errorView() -> some View {
         Text("Oops, Something went wrong!")
+            .foregroundColor(.red)
     }
     
     @ViewBuilder
@@ -77,12 +79,7 @@ extension RepositorySearchView {
                     }
             }
             
-            if viewModel.hasMoreResults {
-                loadingView(for: .medium)
-                    .onAppear {
-                        viewModel.loadMore()
-                    }
-            }
+            loadMoreView()
         }.sheet(isPresented: $showModal) {
             if let selection = viewModel.selectedRepository {
                 RepositoryDetailView(userChoice: $viewModel.userChoice,
@@ -108,5 +105,44 @@ extension RepositorySearchView {
             }
         }
         .contentShape(Rectangle())
+    }
+    
+    
+}
+
+// MARK: - Load More
+extension RepositorySearchView {
+    
+    @ViewBuilder
+    private func loadMoreView() -> some View {
+        switch viewModel.loadMore {
+            case .notRequested: EmptyView()
+            case .isLoading: loadingView(for: .medium)
+            case .loaded(let hasResults): if hasResults { loadMoreResultsView() }
+            case .failed(_): loadMoreErrorView()
+        }
+    }
+    
+    @ViewBuilder
+    private func loadMoreResultsView() -> some View {
+        loadingView(for: .medium)
+            .onAppear {
+                viewModel.loadMoreResults()
+            }
+    }
+    
+    @ViewBuilder
+    private func loadMoreErrorView() -> some View {
+        HStack {
+            Text("⚠️ Load more failed!")
+                .foregroundColor(.red)
+            Spacer()
+            Button("Retry") {
+                viewModel.loadMoreResults()
+            }
+            .buttonStyle(PlainButtonStyle())
+            .foregroundColor(.blue)
+            .padding()
+        }
     }
 }
