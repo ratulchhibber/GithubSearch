@@ -12,7 +12,7 @@ final class RepositorySearchVM: ObservableObject {
     
     @Published var searchText = ""
     @Published var searchResults: Loadable<GithubRepositoryResults>
-    @Published var hasMoreResults = false
+    @Published var loadMore: Loadable<Bool>
     
     @Published var selectedRepository: GithubRepositoryResult?
     @Published var userChoice = [Int: Choice]()/*RepositoryId: Choice*/
@@ -22,9 +22,11 @@ final class RepositorySearchVM: ObservableObject {
     let container: DIContainer
     
     init(container: DIContainer,
-         searchResults: Loadable<GithubRepositoryResults> = .notRequested) {
+         searchResults: Loadable<GithubRepositoryResults> = .notRequested,
+         loadMore: Loadable<Bool> = .notRequested) {
         
         _searchResults = .init(initialValue: searchResults)
+        _loadMore = .init(initialValue: loadMore)
         self.container = container
         setupContinousSearchBinding()
         setupClearSearchBinding()
@@ -61,7 +63,7 @@ extension RepositorySearchVM {
             .switchToLatest()
             .sink(receiveValue: { [weak self] in
                     self?.pagination.currentPage = 0
-                    self?.setupPaginationAnchors(for: $0)
+                    self?.updatePaginationAnchors(for: $0)
                     self?.searchResults = .loaded($0)
                   })
             .store(in: &subscriptions)
@@ -87,7 +89,8 @@ extension RepositorySearchVM {
     
     private var searchErrorPlaceHolder: GithubRepositoryResults? {
         return Bundle.main.decode(GithubRepositoryResults.self,
-                                  from: "searchErrorPlaceholder.json")
+                                  from: "searchErrorPlaceholder.json",
+                                  keyDecodingStrategy: .convertFromSnakeCase)
     }
     
     func hasErroneousResults(for result: GithubRepositoryResults) -> Bool {
@@ -102,37 +105,36 @@ extension RepositorySearchVM {
 // MARK: - Pagination
 extension RepositorySearchVM {
     
-    func loadMore() {
+    func loadMoreResults() {
         container.interactors
             .githubRepositoryInteractor
             .searchRepository(for: SearchQuery(query: searchText,
                                                pageNumber: pagination.currentPage + 1))
+            .handleEvents(receiveRequest: { [weak self] _ in
+                self?.loadMore
+                     .setIsLoading(cancelBag: CancelBag())
+            })
             .sink { [weak self] result in
                 switch result {
-                    case .failure(_):
-                        if let results = self?.pagination.results {
-                            self?.hasMoreResults = false
-                            //Currently, not notifying the user that loadMore failed
-                            self?.searchResults = .loaded(results)
-                        }
+                    case .failure(let error):
+                        self?.loadMore = .failed(error)
                     case .finished:
                         break
                 }
             } receiveValue: { [weak self] result in
                 if let pagination = self?.pagination, var results = pagination.results {
                     results.items.append(contentsOf: result.items)
-                    self?.setupPaginationAnchors(for: results)
+                    self?.updatePaginationAnchors(for: results)
                     self?.searchResults = .loaded(results)
                 }
-                
             }
             .store(in: &subscriptions)
     }
     
-    private func setupPaginationAnchors(for results: GithubRepositoryResults) {
+    private func updatePaginationAnchors(for results: GithubRepositoryResults) {
         pagination.currentPage += 1
         pagination.results = results
-        hasMoreResults = results.totalCount > (pagination.results?.items.count ?? 0)
+        loadMore = .loaded(results.totalCount > results.items.count)
     }
 }
 
