@@ -31,7 +31,6 @@ final class RepositorySearchVM: ObservableObject {
     }
     
     //Pagination
-    private var paginationSearchResults: GithubRepositoryResults?
     private var pagination: (currentPage: Int,
                              results: GithubRepositoryResults?) = (0, nil)
 }
