@@ -2,26 +2,18 @@
 //  Date+Util.swift
 //  GithubSearch
 //
-//  Created by Shruti Chhibber on 10/10/21.
+//  Created by Ratul Chhibber on 20/10/21.
 //
 
 import Foundation
 
 extension Date {
     
-    static func stringFrom(date: Date) -> String {
+    func toString(with dateFormat: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE, MMM d, yyyy"
+        dateFormatter.dateFormat = dateFormat
         dateFormatter.timeZone = TimeZone.current
-        let dateString = dateFormatter.string(from: date)
+        let dateString = dateFormatter.string(from: self)
         return dateString
-    }
-    
-    static func dateFrom(dateString: String) -> Date? {
-        let formatter = ISO8601DateFormatter()
-        guard let date = formatter.date(from: dateString) else {
-            return nil
-        }
-        return date
     }
 }
