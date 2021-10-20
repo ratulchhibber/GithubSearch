@@ -14,7 +14,7 @@ struct GithubRepositoryResults: Codable {
 
 struct GithubRepositoryResult: Codable, Identifiable {
     let id: UUID
-    let githubId: Int
+    let githubId: GithubId
     let name: String
     let language: String?
     let description: String?
@@ -29,14 +29,14 @@ struct GithubRepositoryResult: Codable, Identifiable {
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         id = UUID()
-        githubId = try container.decode(Int.self, forKey: .githubId)
+        githubId = try container.decode(GithubId.self, forKey: .githubId)
         name = try container.decode(String.self, forKey: .name)
         language = try container.decodeIfPresent(String.self, forKey: .language)
         description = try container.decodeIfPresent(String.self, forKey: .description)
         stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
         owner = try container.decodeIfPresent(Owner.self, forKey: .owner)
         if let dateString = try container.decodeIfPresent(String.self, forKey: .createdAt) {
-            createdAt = Date.dateFrom(dateString: dateString)
+            createdAt = dateString.toDate
         } else {
             createdAt = nil
         }
@@ -47,3 +47,5 @@ struct Owner: Codable {
     let login: String
     let avatarUrl: String
 }
+
+typealias GithubId = Int
