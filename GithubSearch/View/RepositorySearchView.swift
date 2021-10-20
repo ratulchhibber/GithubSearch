@@ -83,6 +83,7 @@ extension RepositorySearchView {
         }.sheet(isPresented: $showModal) {
             if let selection = viewModel.selectedRepository {
                 RepositoryDetailView(userChoice: $viewModel.userChoice,
+                                     previousChoice: viewModel.fetchChoice(for: selection.githubId),
                                      repository: selection)
             }
         }

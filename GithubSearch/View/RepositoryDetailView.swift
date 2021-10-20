@@ -9,7 +9,8 @@ import SwiftUI
 
 struct RepositoryDetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var userChoice: [Int: Choice]
+    @Binding var userChoice: (githubId: GithubId, choice: Choice)
+    let previousChoice: Choice
     let repository: GithubRepositoryResult
 
     var body: some View {
@@ -67,12 +68,12 @@ struct RepositoryDetailView: View {
         HStack(spacing: 20) {
             Spacer()
             Button(Choice.like.description) {
-                userChoice[repository.githubId] = .like
+                userChoice = (repository.githubId, .like)
                 dismiss()
             }.font(.largeTitle)
             Spacer()
             Button(Choice.dislike.description) {
-                userChoice[repository.githubId] = .dislike
+                userChoice = (repository.githubId, .dislike)
                 dismiss()
             }.font(.largeTitle)
             Spacer()
@@ -116,13 +117,8 @@ struct RepositoryDetailView: View {
 }
 
 extension RepositoryDetailView {
-    
-    private var previousChoice: Choice { userChoice[repository.githubId] ?? .none }
-    
+        
     private var creationDate: String {
-        if let date = repository.createdAt {
-            return Date.stringFrom(date: date)
-        }
-        return ""
+        repository.createdAt?.toString(with: "EEEE, MMM d, yyyy") ?? ""
     }
 }
