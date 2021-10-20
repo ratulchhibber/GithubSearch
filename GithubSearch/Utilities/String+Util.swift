@@ -9,7 +9,7 @@ import Foundation
 
 extension String {
     
-    var toDate: Date? {
+    var toISO8601Date: Date? {
         let formatter = ISO8601DateFormatter()
         guard let date = formatter.date(from: self) else {
             return nil

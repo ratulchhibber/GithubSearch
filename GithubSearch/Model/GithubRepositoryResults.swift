@@ -36,7 +36,7 @@ struct GithubRepositoryResult: Codable, Identifiable {
         stargazersCount = try container.decode(Int.self, forKey: .stargazersCount)
         owner = try container.decodeIfPresent(Owner.self, forKey: .owner)
         if let dateString = try container.decodeIfPresent(String.self, forKey: .createdAt) {
-            createdAt = dateString.toDate
+            createdAt = dateString.toISO8601Date
         } else {
             createdAt = nil
         }
