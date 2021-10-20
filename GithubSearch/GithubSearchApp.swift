@@ -14,7 +14,6 @@ struct GithubSearchApp: App {
             let environment = AppEnvironment.bootstrap()
             RepositorySearchView(viewModel:
                                     RepositorySearchVM(container: environment.container))
-
         }
     }
 }

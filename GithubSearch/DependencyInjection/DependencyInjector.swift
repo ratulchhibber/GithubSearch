@@ -13,13 +13,13 @@ import Combine
 struct DIContainer {
     
     let interactors: Interactors
-    
-    init(interactors: Interactors) {
-        self.interactors = interactors
-    }
+    let persistence: Persistence
+
     
     static var defaultValue: Self { Self.default }
     
-    private static let `default` = Self(interactors: .stub)
+    private static let `default` = Self(interactors: .stub,
+                                        persistence: .stub)
+
 }
 

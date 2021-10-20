@@ -16,7 +16,8 @@ extension AppEnvironment {
     static func bootstrap() -> AppEnvironment {
         let webRepositories = configuredWebRepositories(for: GithubRepositoryConfiguration())
         let interactors = configuredInteractors(webRepositories: webRepositories)
-        let diContainer = DIContainer(interactors: interactors)
+        let persistence = configuredPersistence()
+        let diContainer = DIContainer(interactors: interactors, persistence: persistence)
         return AppEnvironment(container: diContainer)
     }
     
@@ -30,6 +31,11 @@ extension AppEnvironment {
         
         let githubRepositoryInteractor = GithubRepositoryInteractor(webRepository: webRepositories.githubWebRepository)
         return .init(githubRepositoryInteractor: githubRepositoryInteractor)
+    }
+    
+    private static func configuredPersistence() -> DIContainer.Persistence {
+        return .init(choice: ChoicePersistenceHandler(userDefaults: UserDefaults.standard))
+
     }
 }
 
