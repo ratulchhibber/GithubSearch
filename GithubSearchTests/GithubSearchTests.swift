@@ -16,7 +16,8 @@ final class GithubSearchTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        let diContainer = DIContainer(interactors: DIContainer.Interactors.stub)
+        let diContainer = DIContainer(interactors: DIContainer.Interactors.stub,
+                                      persistence: DIContainer.Persistence.stub)
         viewModel = RepositorySearchVM(container: diContainer)
     }
     
@@ -79,37 +80,39 @@ final class GithubSearchTests: XCTestCase {
     }
     
     func testLikeChoice() {
-        viewModel.userChoice[1234] = .like
-        
+        viewModel.userChoice = (1234, .like)
+
         let exp = expectValue(of: viewModel.$userChoice,
-                              equals: [{ $0[1234] == .like }])
+                              equals: [{ $0.choice == .like }])
 
         wait(for: [exp.expectation], timeout: 1)
     }
     
     func testDislikedChoice() {
-        viewModel.userChoice[1234] = .dislike
+        viewModel.userChoice = (1234, .dislike)
         
         let exp = expectValue(of: viewModel.$userChoice,
-                              equals: [{ $0[1234] == .dislike }])
+                              equals: [{ $0.choice == .dislike }])
 
         wait(for: [exp.expectation], timeout: 1)
     }
     
     func testNoChoice() {
+        viewModel.userChoice = (1234, .none)
+
         let exp = expectValue(of: viewModel.$userChoice,
-                              equals: [{ $0[0] == nil }])
+                              equals: [{ $0.choice == .none }])
 
         wait(for: [exp.expectation], timeout: 1)
     }
     
     func testLikedChoiceDescription() {
-        viewModel.userChoice[1234] = .like
+        viewModel.userChoice = (1234, .like)
         XCTAssertEqual(viewModel.choiceDescription(for: 1234), Choice.like.description)
     }
     
     func testDislikedChoiceDescription() {
-        viewModel.userChoice[1234] = .dislike
+        viewModel.userChoice = (1234, .dislike)
         XCTAssertEqual(viewModel.choiceDescription(for: 1234), Choice.dislike.description)
     }
     
