@@ -15,10 +15,14 @@ final class RepositorySearchVM: ObservableObject {
     @Published var loadMore: Loadable<Bool>
     
     @Published var selectedRepository: GithubRepositoryResult?
-    @Published var userChoice = [Int: Choice]()/*RepositoryId: Choice*/
+    @Published var userChoice: (githubId: GithubId, choice: Choice) {
+        didSet {
+            updateChoice(for: userChoice.githubId, with: userChoice.choice)
+        }
+    }
 
     private var subscriptions = Set<AnyCancellable>()
-    
+        
     let container: DIContainer
     
     init(container: DIContainer,
@@ -27,6 +31,7 @@ final class RepositorySearchVM: ObservableObject {
         
         _searchResults = .init(initialValue: searchResults)
         _loadMore = .init(initialValue: loadMore)
+        _userChoice = .init(initialValue: (0, .none))
         self.container = container
         setupContinousSearchBinding()
         setupClearSearchBinding()
@@ -138,25 +143,21 @@ extension RepositorySearchVM {
     }
 }
 
-// MARK: - User choice
-enum Choice: CustomStringConvertible {
-    case like, dislike, none
-    
-    var description: String {
-        switch self {
-            case .like: return "👍"
-            case .dislike: return "👎"
-            case .none: return ""
-        }
-    }
-}
-
 extension RepositorySearchVM {
     
-    func choiceDescription(for id: Int) -> String {
-        if let choice = userChoice[id] {
-            return choice.description
-        }
-        return Choice.none.description
+    func choiceDescription(for githubId: GithubId) -> String {
+        return fetchChoice(for: githubId).description
+    }
+    
+    func fetchChoice(for githubId: GithubId) -> Choice {
+        return container.persistence
+                        .choice
+                        .fetchChoice(for: githubId)
+    }
+    
+    private func updateChoice(for githubId: GithubId, with choice: Choice) {
+        container.persistence
+                 .choice
+                 .updateChoice(for: githubId, with: choice)
     }
 }
