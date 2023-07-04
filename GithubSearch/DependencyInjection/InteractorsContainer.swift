@@ -15,7 +15,6 @@ extension DIContainer {
         
         static var stub: Self {
             .init(githubRepositoryInteractor: StubGithubRepositoryInteractor())
-            
         }
     }
 }
